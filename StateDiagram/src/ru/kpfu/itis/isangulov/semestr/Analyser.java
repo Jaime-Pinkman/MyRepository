@@ -2,6 +2,9 @@ package ru.kpfu.itis.isangulov.semestr;
 
 public class Analyser {
 
+
+    // Анализирует строку на соблюдение синтаксиса, вот правильный пример
+    // "X1:=2;V2:=X1+5-7;N3:=4;"
     public boolean analyse(String s) {
         char element = 0;
         int state = 0;
@@ -69,6 +72,6 @@ public class Analyser {
         if (element == ';') {
             return true;
         }
-        return false;
+        throw new SyntaxException();
     }
 }

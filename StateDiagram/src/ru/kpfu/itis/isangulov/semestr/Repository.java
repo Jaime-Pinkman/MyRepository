@@ -72,7 +72,8 @@ public class Repository {
         return I;
     }
 
-    //основной метод
+    //основной метод, проверяет в строке правильный порядок инициализации переменных, иначе выбрасывает ошибку инициализации
+    //заполняет массив объектов, хранящих имя переменной и её значение
     public void process(String data) {
         strings = data.split(";");
         this.variables = new ArrayList<>();
