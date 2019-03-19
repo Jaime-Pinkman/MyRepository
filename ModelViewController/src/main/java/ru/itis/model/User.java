@@ -1,9 +1,16 @@
 package ru.itis.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class User {
-    private final String name;
-    private final String surname;
-    private final String email;
+    @NotBlank(message = "Name is required")
+    private String name;
+    @Size(min = 1, max = 10, message = "Surname must be from 1 to 10 symbols")
+    private String surname;
+    @Email
+    private String email;
 
     public String getName() {
         return name;
@@ -22,5 +29,21 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public User() {
+
     }
 }
