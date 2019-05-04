@@ -1,0 +1,42 @@
+create table shop_user (
+  id            bigserial primary key,
+  name          varchar(30),
+  password_hash varchar(60),
+  age           int,
+  xp            int,
+  index         int
+);
+
+create table product (
+  id         bigserial primary key,
+  title      varchar(30),
+  product_id BIGINT unique,
+  xp         bigint,
+  price      bigint,
+  image      varchar(120)
+);
+
+create table basket (
+  id      bigserial primary key,
+  user_id bigint,
+  foreign key (user_id) references shop_user (id)
+);
+
+create table basket_product (
+  id         bigserial primary key,
+  basket_id  bigint,
+  product_id bigint,
+  foreign key (basket_id) references basket (id),
+  foreign key (product_id) references product (product_id)
+);
+
+ALTER TABLE basket_product
+  ADD CONSTRAINT uc_product_basket_id UNIQUE(basket_id, product_id);
+
+
+create table auth (
+  id           bigserial primary key,
+  user_id      bigint,
+  foreign key (user_id) references shop_user (id),
+  cookie_value varchar(100)
+);
