@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dao.UserDAO;
 import ru.itis.model.User;
+import ru.itis.util.UserValidator;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
@@ -19,6 +20,10 @@ public class MainController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private UserValidator userValidator;
+
 
     @GetMapping("/view")
     public String view(@RequestParam(value = "name", required = false, defaultValue = "stranger") String name, Model model) {
@@ -44,11 +49,12 @@ public class MainController {
         return "/sign_up";
     }
     @PostMapping("users/new")
-    public String signUp(@ModelAttribute @Valid User user, BindingResult result){
+    public String signUp(@ModelAttribute @Valid User user, BindingResult result) throws SQLException {
+        userValidator.validate(user, result);
         if (result.hasErrors()) {
             return "/sign_up";
         }
-        //users.add(user);
+        userDAO.add(user);
         return "redirect:/users";
     }
 
